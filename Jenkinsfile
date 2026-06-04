@@ -1,23 +1,46 @@
-stage('Build') {
-    steps {
-        dir('jenkins-demo') {
-            bat 'mvn clean compile'
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Code checkout successful'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing application'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo 'Packaging application'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application'
+            }
         }
     }
-}
 
-stage('Test') {
-    steps {
-        dir('jenkins-demo') {
-            bat 'mvn test'
+    post {
+        success {
+            echo 'CI/CD Pipeline Successful'
         }
-    }
-}
 
-stage('Package') {
-    steps {
-        dir('jenkins-demo') {
-            bat 'mvn package'
+        failure {
+            echo 'CI/CD Pipeline Failed'
         }
     }
 }
